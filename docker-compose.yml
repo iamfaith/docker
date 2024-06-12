@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   redis:
-    container_name: redis
+    container_name: redis-auto
     image: redis:latest
     deploy:
       replicas: 1
@@ -30,7 +30,7 @@ services:
     container_name: autolab
     depends_on:
       - mysql
-      - certbot
+      # - certbot
     ports:
       - '80:80'
       - '443:443'
@@ -52,8 +52,8 @@ services:
       - ./Autolab/courseConfig:/home/app/webapp/courseConfig
       - ./Autolab/assessmentConfig:/home/app/webapp/assessmentConfig
       - ./Autolab/storage:/home/app/webapp/storage
-      - ./ssl/certbot/conf:/etc/letsencrypt
-      - ./ssl/certbot/www:/var/www/certbot
+      # - ./ssl/certbot/conf:/etc/letsencrypt
+      # - ./ssl/certbot/www:/var/www/certbot
 
       # Uncomment the below if you are using your own certificate
       # - ./ssl/fullchain.pem:/etc/letsencrypt/live/test.autolab.io/fullchain.pem
@@ -61,10 +61,10 @@ services:
       # - ./ssl/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
 
       # Comment the below out to disable SSL (not recommended)
-      - ./nginx/app.conf:/etc/nginx/sites-enabled/webapp.conf
+      # - ./nginx/app.conf:/etc/nginx/sites-enabled/webapp.conf
 
       # Uncomment the below to disable SSL (not recommended)
-      # - ./nginx/no-ssl-app.conf:/etc/nginx/sites-enabled/webapp.conf
+      - ./nginx/no-ssl-app.conf:/etc/nginx/sites-enabled/webapp.conf
 
     environment:
       - DOCKER_SSL
@@ -100,12 +100,12 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
 
-  certbot:
-    container_name: certbot
-    image: certbot/certbot
-    volumes:
-      - ./ssl/certbot/conf:/etc/letsencrypt
-      - ./ssl/certbot/www:/var/www/certbot
+  # certbot:
+  #   container_name: certbot
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./ssl/certbot/conf:/etc/letsencrypt
+  #     - ./ssl/certbot/www:/var/www/certbot
 
 volumes:
   mysql-db:

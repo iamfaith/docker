@@ -1,6 +1,6 @@
 [submodule "Autolab"]
 	path = Autolab
-	url = https://github.com/autolab/Autolab.git
+	url = https://github.com/iamfaith/Autolab.git
 [submodule "Tango"]
 	path = Tango
-	url = https://github.com/autolab/Tango.git
+	url = https://github.com/iamfaith/Tango.git

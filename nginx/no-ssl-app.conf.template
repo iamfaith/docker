@@ -1,6 +1,12 @@
+# server {
+#     listen 443;
+#     server_name localhost;
+#     return 301 http://$host$request_uri;
+# }
+
 server {
     listen 80;
-    server_name <REPLACE_WITH_YOUR_DOMAIN>;
+    server_name localhost;
     root /home/app/webapp/public;
     passenger_enabled on;
     passenger_user app;

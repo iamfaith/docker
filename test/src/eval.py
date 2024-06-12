@@ -155,8 +155,4 @@ if __name__ == "__main__":
        
     grader.grade_comment()
     
-    
-    
-    
-    score['scores']['Q1'] = 99
     print(json.dumps(score))

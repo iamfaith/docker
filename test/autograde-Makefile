@@ -1,9 +1,9 @@
 
-SCORES = {"scores": {"compile": 40, "function": 40, "comment": 10} }
+SCORES = {"scores": {"compile": 30, "function": 50, "comment": 10, "codestyle": 10} }
 # from high to low descending by count
 COMMENT = [{"count": 5, "penalty": 0}, {"count": 3, "penalty": 3}, {"count": 1, "penalty": 7}, {"count": 0, "penalty": 10}]
 
-FUNCTION = [{"count": 8, "penalty": 40}, {"count": 4, "penalty": 20}, {"count": 0, "penalty": 0}]
+FUNCTION = [{"count": 10, "penalty": 50}, {"count": 7, "penalty": 35}, {"count": 4, "penalty": 15}, {"count": 0, "penalty": 0}]
 
 CON = '{"function": $(FUNCTION), "comment": $(COMMENT), "ans_compile_cmd": "cd ans && gcc *.c -o ans-main", "compile_cmd": "gcc *.c -o student-main", "run_cmd": "./student-main", "ans_run_cmd": "cd ans && ./ans-main", "grade": $(SCORES), "lang": "*.c"}'
 

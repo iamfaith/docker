@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   redis:
-    container_name: redis-auto
+    container_name: redis_auto
     image: redis:latest
     deploy:
       replicas: 1

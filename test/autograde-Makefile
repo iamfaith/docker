@@ -3,7 +3,7 @@ SCORES = {"scores": {"compile": 30, "function": 50, "comment": 10, "codestyle": 
 # from high to low descending by count
 COMMENT = [{"count": 5, "penalty": 0}, {"count": 3, "penalty": 3}, {"count": 1, "penalty": 7}, {"count": 0, "penalty": 10}]
 
-FUNCTION = [{"count": 10, "penalty": 50}, {"count": 7, "penalty": 35}, {"count": 4, "penalty": 15}, {"count": 0, "penalty": 0}]
+FUNCTION = [{"count": 10, "penalty": 50}, {"count": 7, "penalty": 35}, {"count": 4, "penalty": 15}, {"count": 1, "penalty": 10}, {"count": 0, "penalty": 0}]
 
 CON = '{"function": $(FUNCTION), "comment": $(COMMENT), "ans_compile_cmd": "cd ans && gcc *.c -o ans-main", "compile_cmd": "gcc *.c -o student-main", "run_cmd": "./student-main", "ans_run_cmd": "cd ans && ./ans-main", "grade": $(SCORES), "lang": "*.c"}'
 
@@ -11,8 +11,8 @@ CON = '{"function": $(FUNCTION), "comment": $(COMMENT), "ans_compile_cmd": "cd a
 all:
 	@echo "start autograde:"
 	@tar xvf autograde.tar  > /dev/null 2>&1
-	unzip handin.zip -d handin
-	cp -p -r handin/* test-handout
+	# unzip handin.zip -d handin
+	# cp -p -r handin/* test-handout
 	@(cd test-handout; python3 eval.py $(CON))
 
 

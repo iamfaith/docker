@@ -36,6 +36,7 @@ test: clean handout-tarfile
 	cp -p autograde-Makefile build/Makefile
 	cp -p autograde.tar build/
 	cp -p handin.zip build/
+	# cp -p test.c build/
 	(cd build; make)
 
 #

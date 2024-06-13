@@ -45,10 +45,10 @@ class Grader:
         return lines
          
          
-    def grade_func(self, diff_lines_cnt):
+    def grade_func(self, diff_lines_cnt, scale=1):
         for p in self.func_policy:
             if diff_lines_cnt >= p[0]:
-                score['scores']['function'] -= p[1]
+                score['scores']['function'] -= int(p[1] / scale)
                 break
         print(self.func_policy, diff_lines_cnt)
          
@@ -63,17 +63,18 @@ class Grader:
 
 
 
-    def run_code(self, run_cmd, ans_run_cmd, score):
+    def run_code(self, run_cmd, ans_run_cmd, score, scale=1):
         flag, output = exec_cmd(run_cmd)
         print("[student]: run information\n", flag, output)    
         if not flag:
             score['scores']['function'] = 0
             
-        flag, ans = exec_cmd(ans_run_cmd)
+        _, ans = exec_cmd(ans_run_cmd)
         # print("[answer]: run information\n", flag, ans)
         diff_lines_cnt = diff_output(output, ans)
-        self.grade_func(diff_lines_cnt)
-        # print(ans_run_cmd)
+        if flag:
+            self.grade_func(diff_lines_cnt, scale=scale)
+        print(ans_run_cmd, score)
 
 
 def diff_output(output, ans):
@@ -126,6 +127,17 @@ if __name__ == "__main__":
     score = config['grade']
     lang = config['lang']
 
+    
+    zip_files = list(glob("../*.zip"))
+    if len(zip_files) > 0:
+        for f in zip_files:
+            filename = os.path.basename(f).split('.')[0]
+            os.system(f"unzip '{f}' -d ./")
+            os.system(f"rm -rf '{f}'")
+    else:
+        for f in glob(f"../{lang}"):
+            os.system(f"mv '{f}' ./")
+
     func_policy_config = config['function']
     func_policy = []
     for p in func_policy_config:
@@ -151,7 +163,7 @@ if __name__ == "__main__":
         grader.run_code(run_cmd, ans_run_cmd, score)
     else:
         for c in cases:
-            grader.run_code(run_cmd + f"<< '{c}'", ans_run_cmd + f"<< '{c}'", score)
+            grader.run_code(run_cmd + f"< '{c}'", ans_run_cmd + f"< '{c}'", score, scale=len(cases))
        
     grader.grade_comment()
     
